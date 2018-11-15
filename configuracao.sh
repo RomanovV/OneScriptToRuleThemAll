@@ -6,7 +6,9 @@
 ########################################
 #
 # para baixar e executar esse SCRIPT
-# wget [URL DO SCRIPT]
+# wget https://github.com/RomanovV/OneScriptToRuleThemAll/archive/v1.1.tar.gz
+# tar -xvf v1.1.tar.gz
+# cd OneScriptToRuleThemAll-1.1/
 # chmod +700 configuracao.sh
 # sudo ./configuracao.sh
 #

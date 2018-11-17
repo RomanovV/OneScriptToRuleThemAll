@@ -88,10 +88,9 @@ then
   tar -xvf tor-browser-linux64-8.0.3_en-US.tar.xz
   cd tor-browser_en-US/
   ./start-tor-browser.desktop --register-app
-  sudo rm -f tor-browser-linux64-8.0.3_en-US.tar.xz
+  sudo rm -f tor-browser-linux64-8.0.3_en-US.tar.xz    # BUG: As vezes não apaga
 else
-  echo "A instalação da Rede Tor falhou,
-    pulando configuração e instalação do Tor Browser..."
+  echo "A instalação da Rede Tor falhou, pulando configuração e instalação do Tor Browser..."
 fi
 sleep 2
 
@@ -122,11 +121,16 @@ then
   sleep 2
 fi
 
+# CUIDADO: Mais testes necessários
+# Configura a área de trabalho para usar o cinnamon, caso ele esteja instalado
 if [ -f "$CINNAMON" ]
 then
   # seta o ambiente de desktop para o cinnamon
   echo "Configurando o ambiente de Desktop para o cinnamon..."
-  sudo sed -i -- 's/gnome/cinnamon/g' /var/lib/AccountsService/users/$USER
+  # PROBLEMA, QUANDO NÂO ESTÀ ESCRITO GNOME, NÂO TEM COMO SUBSTITUIR
+  # sudo sed -i -- 's/gnome/cinnamon/g' /var/lib/AccountsService/users/$USER
+  # Talvez resolva o problema, c é change. Aparentemente resolve
+  sudo sed -i '/XSession=/c\XSession=cinnamon' /var/lib/AccountsService/users/$USER
 else
   echo "O ambiente de desktop cinnamon não foi instalado,
     pulando a configuração..."
@@ -169,8 +173,8 @@ sleep 2
 
 DATE=`date '+%d-%m-%Y %H:%M:%S'`
 
-if [ $cinnamon_config_chk == 1 ] && [ $tor_browser_chk == 1 ]
-  && [ $instalation == 1 ]; then
+if [ $cinnamon_config_chk == 1 ] && [ $tor_browser_chk == 1 ] && [ $instalation == 1 ]
+then
   echo "Tudo foi instalado com sucesso..."
   sleep 2
   echo "Aguarde que o computador vai reiniciar..."
@@ -179,7 +183,5 @@ if [ $cinnamon_config_chk == 1 ] && [ $tor_browser_chk == 1 ]
 else
   log_file_name=log_script.$DATE
   echo "Log de erro: $DATE" > "$log_file_name"
-  echo -e " Desktop status = $cinnamon_config_chk \n
-    tor_browser_chk Status = $tor_browser_chk \n
-      With Installation return of = $instalation" >> "$log_file_name"
+  echo -e " Desktop status = $cinnamon_config_chk \n tor_browser_chk Status = $tor_browser_chk \n With Installation return of = $instalation" >> "$log_file_name"
 fi

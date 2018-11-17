@@ -1,6 +1,6 @@
-## Esse é um script que vai ajudar a configurar o linux/fedora de forma automática ##
+## Esse é o script que vai ajudar a configurar o linux/fedora de forma automática
 
-### ATENÇÃO: Não existem garantias que que esse script vai funcionar no seu computador, ele não substituiu a instalação manual dos programas. 
+### ATENÇÃO: Não existem garantias que que esse script vai funcionar no seu computador, ele não substituiu a instalação manual dos programas.
 
 
 #### para baixar e executar esse SCRIPT

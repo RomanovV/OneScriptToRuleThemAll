@@ -82,7 +82,7 @@ sleep 2
 
 if [ -f "$TOR" ]
 then
-  # Baixa, instala e configura o tor-browser
+  # Baixa, instala e configura o tor-browser, se a rede tor foi instalada
   echo "Instalando Tor Browser - o navegador do Tor..."
   wget https://www.torproject.org/dist/torbrowser/8.0.3/tor-browser-linux64-8.0.3_en-US.tar.xz
   tar -xvf tor-browser-linux64-8.0.3_en-US.tar.xz
@@ -105,6 +105,7 @@ sleep 2
 
 # Se o serviço da rede tor não está sendo executado, executa ele
 # Talvez não seja necessário, e se não for, não vai fazer nada
+# TODO: Talvez colocar isso antes de instalar o tor...
 tor_status=`sudo systemctl status tor.service | grep Active:`
 if [[ $tor_status == *"asdefkq"* ]]
 then
@@ -145,8 +146,7 @@ else
 fi
 sleep 2
 
-
-
+# Inicia a chegagem geral se as coisas foram instaladas, e avisa o usuário
 prog_name="Tor"
 checa_instalacao $TOR
 sleep 2
@@ -177,8 +177,14 @@ if [ $cinnamon_config_chk == 1 ] && [ $tor_browser_chk == 1 ] && [ $instalation 
 then
   echo "Tudo foi instalado com sucesso..."
   sleep 2
-  echo "Aguarde que o computador vai reiniciar..."
-  sleep 5
+  echo -n "Aguarde que o computador vai reiniciar"
+  sleep 1
+  for i in 1 2 3 4 5
+  do
+    echo -n "."
+    sleep 1
+  done
+  echo "."
   sudo reboot
 else
   log_file_name=log_script.$DATE
